@@ -1,9 +1,9 @@
 import axios from "axios";
-import { Button, Modal, Rating } from "flowbite-react";
+import { Label, Modal, Radio, Rating } from "flowbite-react";
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
 import { useCart } from "react-use-cart";
+import { HiCheck, HiStar } from "react-icons/hi";
 
 const ListProductgiatot = ({ prop }: any) => {
   const { addItem } = useCart();
@@ -29,7 +29,7 @@ const ListProductgiatot = ({ prop }: any) => {
     try {
       axios
         .get(
-          `https://quocson.fatcatweb.top/product/all?category=${prop.category}&search=${prop.search}&sortBy=${prop.sortBy}&fromPrice=${prop.fromPrice}&toPrice=${prop.toPrice}`
+          `http://localhost:3006/product/all?category=${prop.category}&search=${prop.search}&sortBy=${prop.sortBy}&fromPrice=${prop.fromPrice}&toPrice=${prop.toPrice}`
         )
         .then((response) => {
           setProducts(response.data);
@@ -42,18 +42,29 @@ const ListProductgiatot = ({ prop }: any) => {
 
   return (
     <React.Fragment>
-      <ToastContainer />
       <div className="grid gap-2 grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 bg-white">
         {products
           ? products.map((product: any) => {
               return (
-                <div className="rounded-lg bg-white mb-1.5" key={product?.id}>
+                <div
+                  className="rounded-lg  border border-gray-200 shadow-sm hover:shadow-lg bg-white mb-1.5"
+                  key={product?.id}
+                >
+                  {product?.brand === "official" ? (
+                    <div className="flex items-center gap-1 px-1 font-medium text-white absolute border rounded-tl-md rounded-br-md border-gray-400 bg-blue-600 text-sm md:text-[10px] uppercase">
+                      <HiCheck className="font-medium text-sm" />
+                      <p>{product?.brand}</p>
+                    </div>
+                  ) : (
+                    <div className="flex items-center gap-1 px-1 font-medium text-white absolute border rounded-tl-md rounded-br-md border-gray-400 bg-blue-500 text-sm md:text-[10px] uppercase">
+                      <HiStar className="font-medium text-sm" />
+                      <p>{product?.brand}</p>
+                    </div>
+                  )}
                   <img
                     onClick={() => {
                       axios
-                        .get(
-                          `https://quocson.fatcatweb.top/product/${product?.id}`
-                        )
+                        .get(`http://localhost:3006/v2/product/${product?.id}`)
                         .then((response) => {
                           setProductDetail(response.data);
                           setModals(!modals);
@@ -64,30 +75,79 @@ const ListProductgiatot = ({ prop }: any) => {
                     alt="..."
                   />
                   <Link href={"/products/" + product?.id}>
-                  <h5 className="cursor-pointer text-center text-xs lg:mt-3 font-medium text-gray-900 dark:text-white mx-1 mt-2 h-16 lg:h-24 text-ellipsis">
-                    {product?.productName.substring(0, 70)}
-                  </h5>
+                    <div className="cursor-pointer text-center text-xs h-14">
+                      <p className="font-medium text-gray-900 dark:text-white mx-1 mt-2 text-ellipsis">
+                        {product?.productName.substring(0, 40) + "..."}
+                      </p>
+                      <div className="flex gap-3 items-center justify-center mt-1">
+                        <div className="flex gap-1 pr-1 items-center border-r border-gray-200">
+                          <p>{product?.stars}</p>
+                          <Rating size="sm">
+                            <Rating.Star />
+                          </Rating>
+                        </div>
+                        <div className="flex gap-1 items-center">
+                          <p>Đã bán</p>
+                          <p className="font-medium">{product?.sold}</p>
+                        </div>
+                      </div>
+                    </div>
                   </Link>
-                  <div className="flex items-center flex-col justify-between">
-                  <p className="text-sm font-medium text-gray-800 dark:text-white my-1">
-                    {Intl.NumberFormat().format(product?.price)} đ
-                  </p>
-                    <Button
-                     color="failure"
-                     size="xs"
-                      className="mb-5 mt-2"
-                      onClick={() => {
-                        addItem(product);
-                        toast("Add product successfully", {
-                          position: toast.POSITION.BOTTOM_RIGHT,
-                          type: toast.TYPE.SUCCESS,
-                          className: "toast-message",
-                        });
-                      }}
-                    >
-                          Chọn Mua
-                    </Button>
-                  </div>
+                  {product?.discount?.disPercent ? (
+                    <div className="flex gap-2 px-2 items-center justify-center">
+                      <p className="text-xl md:text-base font-medium text-red-600 dark:text-white my-1">
+                        {Intl.NumberFormat().format(product?.price)} đ
+                      </p>
+                      <p className="text-red-500 font-bold text-xs">
+                        {"-" + product?.discount?.disPercent + "%"}
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="flex gap-2 px-2 items-center justify-center">
+                      <p className="text-xl md:text-base font-medium text-black dark:text-white my-1">
+                        {Intl.NumberFormat().format(product?.price)} đ
+                      </p>
+                    </div>
+                  )}
+                  {product?.price > 500000 ? (
+                    <div className="flex border-b border-gray-200 pb-2 gap-2 text-[9px] lg:text-xs lg:font-normal font-medium text-blue-500 justify-center">
+                      <p className="border border-blue-600 px-1 py-0.5 rounded-sm">
+                        Trả góp
+                      </p>
+                      <p className="border border-blue-600 px-1 py-0.5 rounded-sm">
+                        Nhiều màu
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="flex border-b border-gray-200 pb-2 gap-2 text-[9px] lg:text-xs lg:font-normal font-medium text-blue-500 justify-center">
+                      <p className="border border-blue-600 px-1 py-0.5 rounded-sm">
+                        Nhiều màu
+                      </p>
+                    </div>
+                  )}
+                  {product?.category === "dienthoai" ||
+                  product?.category === "diengiadung" ||
+                  product?.category === "nhahang" ||
+                  product?.category === "khoahoc" ||
+                  product?.category === "sach" ? (
+                    <div className="my-1 flex gap-1 items-center text-sm justify-center">
+                      <img
+                        className="h-4 w-auto"
+                        src="/image/tikinow.png"
+                        alt="..."
+                      />
+                      <p>Giao siêu tốc 2H</p>
+                    </div>
+                  ) : (
+                    <div className="my-1 flex gap-1 items-center text-sm justify-center">
+                      <img
+                        className="h-4 w-auto"
+                        src="/image/tikifast.png"
+                        alt="..."
+                      />
+                      <p>Giao ngày mai</p>
+                    </div>
+                  )}
                 </div>
               );
             })
@@ -102,20 +162,31 @@ const ListProductgiatot = ({ prop }: any) => {
         >
           <Modal.Header>Chi Tiết Sản Phẩm</Modal.Header>
           <Modal.Body>
-          <div className="grid grid-cols-1 items-center align-center md:grid-cols-2 md:items-start gap-4 mx-3">
-                <img
-                  src={productDetail[0]?.image}
-                  className="w-full h-auto rounded-lg"
-                  alt="..."
-                />
+            <div className="grid relative grid-cols-1 items-center align-center md:grid-cols-2 md:items-start gap-4 mx-3">
+              {productDetail[0]?.brand === "official" ? (
+                <div className="flex items-center gap-1 px-1 font-medium text-white absolute border rounded-tl-md rounded-br-md border-gray-400 bg-blue-600 text-sm md:text-[10px] uppercase">
+                  <HiCheck className="font-medium text-sm" />
+                  <p>{productDetail[0]?.brand}</p>
+                </div>
+              ) : (
+                <div className="flex items-center gap-1 px-1 font-medium text-white absolute border rounded-tl-md rounded-br-md border-gray-400 bg-blue-500 text-sm md:text-[10px] uppercase">
+                  <HiStar className="font-medium text-sm" />
+                  <p>{productDetail[0]?.brand}</p>
+                </div>
+              )}
+              <img
+                src={productDetail[0]?.image}
+                className="w-full h-auto rounded-lg"
+                alt="..."
+              />
               <div>
                 <div className="text-xs mb-3 flex">
-                  <h5>Thương hiệu: </h5>
+                  <h5>Sản phẩm: </h5>
                   <a href="#" className="text-blue-600 underline ml-2">
                     {productDetail[0]?.brand}
                   </a>
                 </div>
-                <h3 className="text-lg md:text-2xl font-medium mb-3">
+                <h3 className="text-lg md:text-xl font-medium mb-3">
                   {productDetail[0]?.productName}
                 </h3>
                 <div className="flex flex-col items-start gap-2 md:flex-row md:items-center md:justify-between">
@@ -123,40 +194,84 @@ const ListProductgiatot = ({ prop }: any) => {
                     <Rating>
                       <Rating.Star />
                       <p className="ml-2 text-sm font-bold text-gray-900 dark:text-white mr-4">
-                        4.95
+                        {productDetail[0]?.stars}
                       </p>
 
-                      <a
-                        href="#"
-                        className="text-sm font-medium text-gray-900 underline hover:no-underline dark:text-white"
-                      >
-                        73 reviews
-                      </a>
+                      <div className="text-sm font-medium text-gray-900  dark:text-white">
+                        {productDetail[0]?.sold + " đánh giá"}
+                      </div>
                     </Rating>
                   </div>
-                  <h5 className="text-sm">Đã bán 1453</h5>
+                  <h5 className="text-sm">
+                    {"Đã bán: " + productDetail[0]?.sold}
+                  </h5>
                 </div>
 
-                <div className="bg-gray-100 font-bold rounded-md p-4 my-4 text-red-700 text-xl md:text-3xl">
-                    <h2>
-                      {Intl.NumberFormat().format(productDetail[0]?.price)} đ
-                    </h2>
+                <div className="bg-gray-100 rounded-md p-4 my-4 flex gap-3 items-end relative">
+                  <h2 className=" text-red-500 font-bold text-xl">
+                    {Intl.NumberFormat().format(
+                      (productDetail[0]?.price *
+                        (100 - (productDetail[0]?.discount?.disPercent || 0))) /
+                        100
+                    )}{" "}
+                    đ
+                  </h2>
+                  <p className="line-through text-gray-500">
+                    {Intl.NumberFormat().format(productDetail[0]?.price)} đ
+                  </p>
+                  <p className="text-red-600 lg:text-sm font-bold absolute px-2 rounded-bl-md rounded-tr-md right-0 top-0 bg-red-400 border border-gray-100">
+                    {"-" + (productDetail[0]?.discount?.disPercent || 0) + "%"}
+                  </p>
+                </div>
+
+                <div>
+                  <p className="mb-3 font-medium">Loại:</p>
+                  <div className="grid grid-cols-3 gap-1">
+                    {productDetail[0]?.productvariant[0]?.id == undefined ? (
+                      <div className="flex items-center py-1 justify-center gap-2 border border-gray-200 rounded-lg hover:bg-gray-200 cursor-pointer shadow-md">
+                        <Radio
+                          id="united-state"
+                          className="cursor-pointer"
+                          name="countries"
+                          defaultChecked={true}
+                        />
+                        <Label htmlFor="united-state">Original</Label>
+                      </div>
+                    ) : (
+                      productDetail[0]?.productvariant?.map((item: any) => {
+                        return (
+                          <div
+                            key={item.id}
+                            className="flex items-center py-1 justify-center gap-1 border border-gray-200 rounded-lg hover:bg-gray-200 cursor-pointer shadow-md"
+                          >
+                            <Radio
+                              id="united-state"
+                              name="countries"
+                              className="cursor-pointer"
+                              defaultChecked={true}
+                            />
+                            <Label htmlFor="united-state">{item.type}</Label>
+                          </div>
+                        );
+                      })
+                    )}
                   </div>
+                </div>
               </div>
             </div>
             <div className="bg-gray-100 rounded-md p-3 mx-3 mt-4">
-                <h2 className="font-bold text-sm md:text-base">
-                  Mô tả sản phẩm:
-                </h2>
-                <div className="text-sm md:text-base text-justify">
-                  {productDetail[0]?.content}
-                </div>
+              <h2 className="font-bold text-sm md:text-base">
+                Mô tả sản phẩm:
+              </h2>
+              <div className="text-sm md:text-base text-justify">
+                {productDetail[0]?.content}
               </div>
+            </div>
           </Modal.Body>
         </Modal>
       </div>
       <Link href={path} className="flex justify-center items-center mt-6 pb-6">
-        <p  className="w-fit border-2 border-blue-500 rounded-md py-2 px-16 hover:bg-blue-100 text-blue-700">
+        <p className="w-fit border-2 border-blue-500 rounded-md py-2 px-16 hover:bg-blue-100 text-blue-700">
           Xem thêm
         </p>
       </Link>

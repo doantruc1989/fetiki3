@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react";
 import { CartProvider } from "react-use-cart";
-import Layout from "../components/Layout";
+import Layout2 from "../components/Layout2";
 import { HiPuzzle } from "react-icons/hi";
 import Dongtienhero from "../components/Dongtienhero";
 import { ToastContainer } from "react-toastify";
@@ -287,9 +287,9 @@ function Index() {
 Index.getLayout = function getLayout(page: ReactElement) {
   return (
     <CartProvider>
-      <Layout>
+      <Layout2>
         <>{page}</>
-      </Layout>
+      </Layout2>
     </CartProvider>
   );
 };

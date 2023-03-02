@@ -7,13 +7,14 @@ import Hero3 from "./Hero/Hero3";
 import Hero4 from "./Hero/Hero4";
 import Hero5 from "./Hero/Hero5";
 import Hero6 from "./Hero/Hero6";
+import Footera from "./Footer";
 
 const Homepage = () => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
     try {
-      axios.get("https://quocson.fatcatweb.top/listcategory").then((response) => {
+      axios.get("http://localhost:3006/listcategory").then((response) => {
         setItems(response.data);
       });
     } catch (error) {
@@ -22,9 +23,9 @@ const Homepage = () => {
   }, []);
   return (
     <div className="flex w-full mx-auto gap-6">
-      <div className="w-fit hidden lg:block mt-8 rounded-xl ml-10">
+      <div className="w-fit hidden xl:block xl:fixed xl:left-8 h-[500px] mt-8 rounded-xl">
         <Sidebar
-          className=" bg-[#F5F5FA] rounded-xl"
+          className=" bg-[#F5F5FA] rounded-xl sidehome"
           aria-label="Sidebar with logo branding example"
         >
           <Sidebar.Items>
@@ -51,13 +52,14 @@ const Homepage = () => {
           </Sidebar.Items>
         </Sidebar>
       </div>
-      <div className="w-full lg:w-9/12 mx-auto mr-10">
+      <div className="w-full lg:w-11/12 mx-auto xl:w-9/12 xl:mr-6">
         <Hero />
         <Hero2 />
         <Hero3 />
         <Hero4 />
         <Hero5 />
         <Hero6 />
+        <Footera />
       </div>
     </div>
   );

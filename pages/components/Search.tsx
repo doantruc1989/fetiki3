@@ -7,13 +7,15 @@ function Search() {
   const [result, setResult] = useState([] as any);
   const searchref: any = useRef();
 
+  console.log(result);
+
   const handleSearch = async (e: any) => {
     setSearch(e.target.value);
     if (e.target.value) {
       try {
         await axios
           .get(
-            `https://quocson.fatcatweb.top/product/all?search=searchall&sortBy=${e.target.value}`
+            `http://localhost:3006/product/all?search=searchall&sortBy=${e.target.value}`
           )
           .then((res) => {
             setResult(res.data);

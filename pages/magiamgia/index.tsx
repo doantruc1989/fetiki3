@@ -2,7 +2,7 @@ import { Breadcrumb, Carousel } from "flowbite-react";
 import React, { ReactElement } from "react";
 import { CartProvider } from "react-use-cart";
 import HeadSeo from "../components/HeadSeo";
-import Layout from "../components/Layout";
+import Layout2 from "../components/Layout2";
 import { HiHome } from "react-icons/hi";
 
 function Index() {
@@ -73,9 +73,9 @@ function Index() {
 Index.getLayout = function getLayout(page: ReactElement) {
   return (
     <CartProvider>
-      <Layout>
+      <Layout2>
         <>{page}</>
-      </Layout>
+      </Layout2>
     </CartProvider>
   );
 };

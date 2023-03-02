@@ -2,11 +2,11 @@ import { Breadcrumb, Button, TextInput } from "flowbite-react";
 import React, { ReactElement, useEffect, useState } from "react";
 import { CartProvider } from "react-use-cart";
 import HeadSeo from "../components/HeadSeo";
-import Layout from "../components/Layout";
 import { HiHome, HiPencilAlt } from "react-icons/hi";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Layout2 from "../components/Layout2";
 
 function Index() {
   const [users, setUsers] = useState([] as any);
@@ -26,7 +26,7 @@ function Index() {
     const user = stored ? JSON.parse(stored) : "";
     const id = user.id;
     const config = {
-      baseURL: "https://quocson.fatcatweb.top/",
+      baseURL: "http://localhost:3006/",
       headers: { Authorization: "Bearer " + user.tokens.accessToken },
     };
 
@@ -39,7 +39,7 @@ function Index() {
   const handleChangeAvt = () => {
     try {
       axios
-        .patch(`https://quocson.fatcatweb.top/users/${users.id}`, {
+        .patch(`http://localhost:3006/users/${users.id}`, {
           image: avatar || users.image,
         })
         .then((res: any) => {
@@ -59,7 +59,7 @@ function Index() {
   const handleChangePw = () => {
     try {
       axios
-        .patch(`https://quocson.fatcatweb.top/users/profile/${users.id}`, {
+        .patch(`http://localhost:3006/users/profile/${users.id}`, {
           password: userPw,
         })
         .then((res: any) => {
@@ -179,9 +179,9 @@ function Index() {
 Index.getLayout = function getLayout(page: ReactElement) {
   return (
     <CartProvider>
-      <Layout>
+      <Layout2>
         <>{page}</>
-      </Layout>
+      </Layout2>
     </CartProvider>
   );
 };

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Card } from "flowbite-react";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
@@ -8,7 +9,7 @@ const Hero2 = () => {
   const [brands, setBrands] = useState([]);
   useEffect(() => {
     try {
-      axios.get("https://quocson.fatcatweb.top/homepage/chinhhang").then((response) => {
+      axios.get("http://localhost:3006/homepage/chinhhang").then((response) => {
         setBrands(response.data);
       });
     } catch (error) {
@@ -63,13 +64,16 @@ const Hero2 = () => {
         {brands
           ? brands.map((brand: any) => {
               return (
-                <div className="border border-gray-200 rounded-md mx-1" key={brand.id}>
+                <div className="border mb-1 shadow-md hover:shadow-xl border-gray-200 rounded-md mx-1" key={brand.id}>
+                <Link href={brand.path}>
+                
                 <img
                   src={brand.image}
                   className='w-full h-auto rounded-md'
                   alt={brand.name}
                   
                 />
+                </Link>
                 </div>
               );
             })

@@ -19,7 +19,7 @@ const Hero = () => {
   useEffect(() => {
     try {
       axios
-        .get("https://quocson.fatcatweb.top/homepage/hero")
+        .get("http://localhost:3006/homepage/hero")
         .then((response) => {
           setRightPart(response.data.pop());
           setSlides(response.data);
@@ -70,9 +70,11 @@ const Hero = () => {
           {slides
             ? slides.map((newSlide: any) => {
                 return (
-                  <a href={newSlide.path} key={newSlide.id}>
+                  <a
+                 
+                  href={newSlide.path} key={newSlide.id}>
                     <img
-                      className="rounded-xl h-fit lg:h-60"
+                      className="rounded-xl h-fit lg:h-56 w-full"
                       src={newSlide.image}
                       alt={newSlide.name}
                       key={newSlide.id}
@@ -82,11 +84,11 @@ const Hero = () => {
               })
             : null}
         </Carousel>
-        <div className="hidden lg:block w-80">
+        <div className="hidden lg:block lg:ml-4">
           {rightPart ? (
             <a href={rightPart.path}>
               <img
-                className="rounded-xl lg:h-60"
+                className="rounded-xl lg:h-56"
                 src={rightPart.image}
                 alt={rightPart.category}
                 key={rightPart.id}

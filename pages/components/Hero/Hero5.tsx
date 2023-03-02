@@ -9,9 +9,8 @@ const Hero5 = () => {
 
   useEffect(() => {
     try {
-      axios.get("https://quocson.fatcatweb.top/homepage/bosuutap").then((response) => {
+      axios.get("http://localhost:3006/homepage/bosuutap").then((response) => {
         setCollections(response.data);
-
       });
     } catch (error) {
       console.log(error);
@@ -22,18 +21,18 @@ const Hero5 = () => {
     desktop: {
       breakpoint: { max: 3000, min: 968 },
       items: 6,
-      slidesToSlide: 6 // optional, default to 1.
+      slidesToSlide: 6, // optional, default to 1.
     },
     tablet: {
       breakpoint: { max: 968, min: 464 },
       items: 3,
-      slidesToSlide: 3 // optional, default to 1.
+      slidesToSlide: 3, // optional, default to 1.
     },
     mobile: {
       breakpoint: { max: 464, min: 0 },
       items: 2,
-      slidesToSlide: 2 // optional, default to 1.
-    }
+      slidesToSlide: 2, // optional, default to 1.
+    },
   };
 
   return (
@@ -42,7 +41,7 @@ const Hero5 = () => {
         Bộ sưu tập nổi bật
       </h5>
 
-        <Carousel 
+      <Carousel
         swipeable={false}
         draggable={true}
         showDots={false}
@@ -59,23 +58,21 @@ const Hero5 = () => {
         deviceType={"desktop"}
         dotListClass="custom-dot-list-style"
         itemClass="carousel-item-margin-40-px"
-        >
-            {collections.map((collection : any) => {
-              return (
-                <a href={collection.path} key={collection.id}>
-<div className="border border-gray-200 rounded-md mx-1">
-
-                  <img
-                    src={collection.image}
-                    alt="..."
-                    className="rounded-md mx-auto "
-                   
-                  />
-</div>
-                </a>
-              );
-            })}
-        </Carousel>
+      >
+        {collections.map((collection: any) => {
+          return (
+            <a href={collection.path} key={collection.id}>
+              <div className="border mb-1 shadow-sm hover:shadow-lg border-gray-200 rounded-md mx-1">
+                <img
+                  src={collection.image}
+                  alt="..."
+                  className="rounded-md mx-auto "
+                />
+              </div>
+            </a>
+          );
+        })}
+      </Carousel>
     </Card>
   );
 };

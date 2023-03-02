@@ -46,125 +46,52 @@ const Hero4 = () => {
           itemClass="carousel-item-margin-40-px"
         >
           <div className="grid gap-1 grid-cols-2 mr-1 mx-auto">
-            <img
-              src="image/sale1.png"
-              className="rounded-xl"
-              alt="..."
-            />
+            <img src="/image/sale1.png" className="rounded-xl" alt="..." />
             <div className="grid grid-row-2">
-              <img
-                src="image/sale2.png"
-                className="rounded-xl"
-                alt="..."
-              />
-              <img
-                src="image/sale3.png"
-                className="rounded-xl"
-                alt="..."
-              />
+              <img src="/image/sale2.png" className="rounded-xl" alt="..." />
+              <img src="/image/sale3.png" className="rounded-xl" alt="..." />
             </div>
           </div>
 
           <div className="grid gap-1 grid-cols-2 mr-1 mx-auto">
-            <img
-              src="image/sale4.png"
-              className="rounded-xl"
-              alt="..."
-            />
+            <img src="/image/sale4.png" className="rounded-xl" alt="..." />
             <div className="grid grid-row-2">
-              <img
-                src="image/sale5.png"
-                className="rounded-xl"
-                alt="..."
-              />
-              <img
-                src="image/sale6.png"
-                className="rounded-xl"
-                alt="..."
-              />
+              <img src="/image/sale5.png" className="rounded-xl" alt="..." />
+              <img src="/image/sale6.png" className="rounded-xl" alt="..." />
             </div>
           </div>
 
           <div className="grid gap-1 grid-cols-2 mr-1 mx-auto">
-            <img
-              src="image/sale7.png"
-              className="rounded-xl"
-              alt="..."
-            />
+            <img src="/image/sale7.png" className="rounded-xl" alt="..." />
             <div className="grid grid-row-2">
-              <img
-                src="image/sale8.png"
-                className="rounded-xl"
-                alt="..."
-              />
-              <img
-                src="image/sale9.png"
-                className="rounded-xl"
-                alt="..."
-              />
+              <img src="/image/sale8.png" className="rounded-xl" alt="..." />
+              <img src="/image/sale9.png" className="rounded-xl" alt="..." />
             </div>
           </div>
 
           <div className="grid gap-1 grid-cols-2 mr-1 mx-auto">
-            <img
-              src="image/sale10.png"
-              className="rounded-xl"
-              alt="..."
-            />
+            <img src="/image/sale10.png" className="rounded-xl" alt="..." />
             <div className="grid grid-row-2">
-              <img
-                src="image/sale11.png"
-                className="rounded-xl"
-                alt="..."
-              />
-              <img
-                src="image/sale12.png"
-                className="rounded-xl"
-                alt="..."
-              />
+              <img src="/image/sale11.png" className="rounded-xl" alt="..." />
+              <img src="/image/sale12.png" className="rounded-xl" alt="..." />
             </div>
           </div>
 
           <div className="grid gap-1 grid-cols-2 mr-1 mx-auto">
-            <img
-              src="image/sale13.png"
-              className="rounded-xl"
-              alt="..."
-            />
+            <img src="/image/sale13.png" className="rounded-xl" alt="..." />
             <div className="grid grid-row-2">
-              <img
-                src="image/sale14.png"
-                className="rounded-xl"
-                alt="..."
-              />
-              <img
-                src="image/sale15.png"
-                className="rounded-xl"
-                alt="..."
-              />
+              <img src="/image/sale14.png" className="rounded-xl" alt="..." />
+              <img src="/image/sale15.png" className="rounded-xl" alt="..." />
             </div>
           </div>
 
           <div className="grid gap-1 grid-cols-2 mr-1 mx-auto">
-            <img
-              src="image/sale16.png"
-              className="rounded-xl"
-              alt="..."
-            />
+            <img src="/image/sale16.png" className="rounded-xl" alt="..." />
             <div className="grid grid-row-2">
-              <img
-                src="image/sale17.png"
-                className="rounded-xl"
-                alt="..."
-              />
-              <img
-                src="image/sale18.png"
-                className="rounded-xl"
-                alt="..."
-              />
+              <img src="/image/sale17.png" className="rounded-xl" alt="..." />
+              <img src="/image/sale18.png" className="rounded-xl" alt="..." />
             </div>
           </div>
-
         </Carousel>
       </div>
     </Card>

@@ -87,7 +87,7 @@ const Nav = () => {
         <Navbar.Brand href="/">
           <img
             src="/image/logotiki.png"
-            className="hidden md:flex mr-3 h-10 md:h-14"
+            className="hidden md:flex h-10"
             alt="tiki Logo"
           />
         </Navbar.Brand>

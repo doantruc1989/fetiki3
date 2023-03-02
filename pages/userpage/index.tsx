@@ -1,14 +1,15 @@
 import axios from "axios";
-import { Breadcrumb, Button, Label, TextInput } from "flowbite-react";
+import { Breadcrumb, Button, Label, Textarea, TextInput } from "flowbite-react";
 import React, { Fragment, ReactElement, useEffect, useState } from "react";
 import { CartProvider } from "react-use-cart";
 import HeadSeo from "../components/HeadSeo";
-import Layout from "../components/Layout";
+import Layout2 from "../components/Layout2";
 import { HiHome, HiPencilAlt } from "react-icons/hi";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Link from "next/link";
 import { Dialog, Transition } from "@headlessui/react";
+import { useRouter } from "next/router";
 
 function Index() {
   const [users, setUsers] = useState([] as any);
@@ -22,6 +23,16 @@ function Index() {
   const [payment, setPayment] = useState(false);
   const [paynow, setPaynow] = useState(false);
   const [isPaid, setIsPaid] = useState(false);
+  const [isReview, setIsReview] = useState(false);
+  const [isReceived, setIsReceived] = useState(false);
+  const [isConfirm, setIsConfirm] = useState(false);
+  const [isConfirmYes, setIsConfirmYes] = useState(false);
+  const [orderItems, setOrderItems] = useState(0);
+  const [orderId, setOrderId] = useState(0);
+  const [reviewStars, setReviewStars] = useState(5);
+  const [reviewComment, setReviewComment] = useState("");
+
+  console.log(orderId);
 
   useEffect(() => {
     setValidPw(userPw === userPw2 && userPw !== "");
@@ -32,7 +43,7 @@ function Index() {
     const user = stored ? JSON.parse(stored) : "";
     const id = user.id;
     const config = {
-      baseURL: "https://quocson.fatcatweb.top/",
+      baseURL: "http://localhost:3006/",
       headers: { Authorization: "Bearer " + user.tokens.accessToken },
     };
 
@@ -45,19 +56,19 @@ function Index() {
   useEffect(() => {
     try {
       axios
-        .get(`https://quocson.fatcatweb.top/cart/admin/order/${users.id}`)
+        .get(`http://localhost:3006/cart/admin/order/${users.id}`)
         .then((res: any) => {
           setOrders(res.data);
         });
     } catch (error) {
       console.log(error);
     }
-  }, [users.id, isPaid]);
+  }, [users.id, isPaid, isReceived]);
 
   const handleChangeAvt = () => {
     try {
       axios
-        .patch(`https://quocson.fatcatweb.top/users/${users.id}`, {
+        .patch(`http://localhost:3006/users/${users.id}`, {
           image: avatar || users.image,
         })
         .then((res: any) => {
@@ -77,7 +88,7 @@ function Index() {
   const handleChangePw = () => {
     try {
       axios
-        .patch(`https://quocson.fatcatweb.top/users/profile/${users.id}`, {
+        .patch(`http://localhost:3006/users/profile/${users.id}`, {
           password: userPw,
         })
         .then((res: any) => {
@@ -213,7 +224,7 @@ function Index() {
                             setPaynow(false);
                             setIsPaid(false);
                             axios.patch(
-                              `https://quocson.fatcatweb.top/cart/admin/listorder/${order.id}`,
+                              `http://localhost:3006/cart/admin/listorder/${order.id}`,
                               {
                                 isPaid: true,
                               }
@@ -232,8 +243,8 @@ function Index() {
                     )}
 
                     <div className="flex gap-2 items-center justify-center">
-                      <p className="font-medium text-sm">Order number:</p>
-                      <p>{order.id}</p>
+                      <p className="font-medium text-sm">Đơn Hàng:</p>
+                      <p className="font-medium text-green-500">{order.id}</p>
                     </div>
 
                     <div className="flex justify-between items-center border-b border-t border-gray-400 my-3 text-sm pl-2 py-3">
@@ -248,13 +259,13 @@ function Index() {
                         </div>
                         <div className="mt-2">
                           <p className="font-medium">Phương thức vận chuyển:</p>
-                          <p className="pl-2">
+                          <div className="pl-2">
                             {order.trans === "fast" ? (
                               <p>Tiêu chuẩn</p>
                             ) : (
                               <p>Hoả tốc</p>
                             )}
-                          </p>
+                          </div>
                         </div>
                       </div>
                       <div className="flex flex-col gap-1 items-end justify-center">
@@ -275,41 +286,130 @@ function Index() {
                                 src={item.image}
                                 alt=""
                               />
-                              <span className="flex items-center gap-2">
+                              <div className="flex flex-col items-start">
                                 <span>
-                                  {item.productName} {" x "}
-                                  <span className="font-medium">
-                                    {item.quantity}
-                                  </span>
+                                  {item.productName + " x " + item.quantity}
                                 </span>
-                              </span>
+                                <div className="flex justify-start gap-2">
+                                  <p className="text-gray-500">
+                                    {item.type || null}
+                                  </p>
+                                  {order.status === 3 ? (
+                                    <a
+                                      onClick={(e: any) => {
+                                        e.preventDefault;
+                                        setIsReview(!isReview);
+                                        setOrderItems(item.id.split(".")[0]);
+                                      }}
+                                      className="text-blue-500 cursor-pointer"
+                                    >
+                                      [đánh giá]
+                                    </a>
+                                  ) : null}
+                                </div>
+                              </div>
                             </div>
+
                             <div className="font-medium ml-5">
-                              {Intl.NumberFormat().format(item.price) + "đ"}
+                              {Intl.NumberFormat().format(item.itemTotal) + "đ"}
                             </div>
                           </div>
                         );
                       })}
                     </div>
-                    <div className="flex justify-between items-center border-t border-gray-400 pt-2">
+
+                    {isReview && (
+                      <div className="mt-2">
+                        <div className="my-1 flex gap-1 items-center">
+                          <h1>Đánh giá:</h1>
+                          <select
+                            value={reviewStars}
+                            onChange={(e: any) => {
+                              setReviewStars(e.target.value);
+                            }}
+                            className="border rounded-lg w-full bg-blue-100 border-blue-500 text-blue-900"
+                          >
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                          </select>
+                        </div>
+
+                        <Textarea
+                          value={reviewComment}
+                          onChange={(e: any) => {
+                            setReviewComment(e.target.value);
+                          }}
+                        />
+
+                        <div className="flex justify-center mt-2">
+                          <Button
+                            size={"xs"}
+                            onClick={() => {
+                              axios
+                                .post(
+                                  `http://localhost:3006/v2/product/comment/`,
+                                  {
+                                    comment: reviewComment || "tuyệt vời",
+                                    stars: reviewStars || 5,
+                                    user: users.id,
+                                    product: orderItems * 1,
+                                  }
+                                )
+                                .then((res: any) => {
+                                  setIsReview(false);
+                                  setReviewComment("");
+                                  setReviewStars(5);
+                                });
+                            }}
+                          >
+                            OK
+                          </Button>
+                        </div>
+                      </div>
+                    )}
+
+                    <div className="px-2 flex justify-between items-center p border-t border-gray-400 pt-2">
+                      <p className="font-medium text-sm">Phí Vận chuyển:</p>
+                      <p className="text-sm font-medium">
+                        {order.trans === "express" ? "16,000đ" : "0đ"}
+                      </p>
+                    </div>
+                    <div className="px-2 flex justify-between items-center pt-2">
                       <p className="font-medium">Tổng Tiền:</p>
-                      <p className="text-red-800 font-medium text-xl">
+                      <p className="text-red-600 font-medium text-xl">
                         {Intl.NumberFormat().format(order.cartTotal)}đ
                       </p>
                     </div>
                     <div className="flex justify-center gap-1 text-xs">
                       <p>Trạng thái:</p>
-                      <p className="font-medium text-blue-600">
-                        {order.status === 0
-                          ? "Chờ xác nhận"
-                          : order.status === 1
-                          ? "Chờ lấy hàng"
-                          : order.status === 2
-                          ? "Đang giao"
-                          : "Đã giao thành công"}
-                      </p>
+                      <div className="font-medium text-blue-600">
+                        {order.status === 0 ? (
+                          "Chờ xác nhận"
+                        ) : order.status === 1 ? (
+                          "Đang giao"
+                        ) : order.status === 3 ? (
+                          "đánh giá"
+                        ) : order.status === 4 ? (
+                          "Hoàn thành"
+                        ) : (
+                          <a
+                            className="cursor-pointer"
+                            // href=""
+                            onClick={(e: any) => {
+                              e.preventDefault;
+                              setIsReceived(!isReceived);
+                              setOrderId(order.id);
+                            }}
+                          >
+                            Đã giao thành công, bấm để xác nhận
+                          </a>
+                        )}
+                      </div>
                     </div>
-
+                    {/* thanh toán */}
                     <Transition appear show={payment} as={Fragment}>
                       <Dialog
                         as="div"
@@ -446,6 +546,104 @@ function Index() {
                         </div>
                       </Dialog>
                     </Transition>
+
+                    {/* xac nhan nhan hang */}
+                    <Transition appear show={isReceived} as={Fragment}>
+                      <Dialog
+                        as="div"
+                        className="relative z-10"
+                        onClose={() => setIsReceived(!isReceived)}
+                      >
+                        <Transition.Child
+                          as={Fragment}
+                          enter="ease-out duration-300"
+                          enterFrom="opacity-0"
+                          enterTo="opacity-100"
+                          leave="ease-in duration-200"
+                          leaveFrom="opacity-100"
+                          leaveTo="opacity-0"
+                        >
+                          <div className="fixed inset-0 bg-black bg-opacity-25" />
+                        </Transition.Child>
+
+                        <div className="fixed inset-0 overflow-y-auto">
+                          <div className="flex min-h-full items-center justify-center p-4 text-center">
+                            <Transition.Child
+                              as={Fragment}
+                              enter="ease-out duration-300"
+                              enterFrom="opacity-0 scale-95"
+                              enterTo="opacity-100 scale-100"
+                              leave="ease-in duration-200"
+                              leaveFrom="opacity-100 scale-100"
+                              leaveTo="opacity-0 scale-95"
+                            >
+                              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                                <div className="mt-2">
+                                  <div>
+                                    <p className="text-sm text-gray-500 text-center">
+                                      Xác nhận đã nhận hàng?
+                                    </p>
+                                  </div>
+                                  <div className="flex items-center justify-evenly my-6">
+                                    <Button
+                                      onClick={(e: any) => {
+                                        e.preventDefault;
+                                        setIsConfirm(!isConfirm);
+                                      }}
+                                      color={"failure"}
+                                      size="xs"
+                                    >
+                                      Trả hàng / Hoàn Tiền
+                                    </Button>
+
+                                    <Button
+                                      color={"info"}
+                                      size="xs"
+                                      onClick={(e: any) => {
+                                        e.preventDefault;
+                                        axios
+                                          .patch(
+                                            `http://localhost:3006/cart/admin/listorder/${orderId}`,
+                                            {
+                                              status: 3,
+                                            }
+                                          )
+                                          .then((res: any) => {
+                                            setIsConfirm(false);
+                                            setIsConfirmYes(true);
+                                            setTimeout(() => {
+                                              setIsReceived(false);
+                                              setIsConfirmYes(false);
+                                            }, 5000);
+                                          });
+                                      }}
+                                    >
+                                      Đã nhận
+                                    </Button>
+                                  </div>
+                                  {isConfirm && (
+                                    <div className="flex items-center justify-center">
+                                      <p className="text-xs text-red-400">
+                                        Chức năng đang phát triển
+                                      </p>
+                                    </div>
+                                  )}
+                                  {isConfirmYes && (
+                                    <div className="flex items-center justify-center">
+                                      <p className="text-xs text-green-400 text-center">
+                                        Xác nhận bạn đã nhận hàng. Hệ thống sẽ
+                                        chuyển bạn đến trang đánh giá. Vui lòng
+                                        đợi 1 chút!
+                                      </p>
+                                    </div>
+                                  )}
+                                </div>
+                              </Dialog.Panel>
+                            </Transition.Child>
+                          </div>
+                        </div>
+                      </Dialog>
+                    </Transition>
                   </div>
                 );
               })
@@ -467,9 +665,9 @@ function Index() {
 Index.getLayout = function getLayout(page: ReactElement) {
   return (
     <CartProvider>
-      <Layout>
+      <Layout2>
         <>{page}</>
-      </Layout>
+      </Layout2>
     </CartProvider>
   );
 };

@@ -1,10 +1,10 @@
 import { Breadcrumb, Button, Table } from "flowbite-react";
 import React, { ReactElement } from "react";
 import { CartProvider, useCart } from "react-use-cart";
-import Layout from "../components/Layout";
 import { HiChevronLeft, HiChevronRight, HiHome } from "react-icons/hi";
 import Link from "next/link";
 import HeadSeo from "../components/HeadSeo";
+import Layout2 from "../components/Layout2";
 
 const Index = () => {
   const { totalUniqueItems, items, updateItemQuantity, removeItem, cartTotal } =
@@ -52,22 +52,27 @@ const Index = () => {
                         <div className="pl-4 flex justify-start items-center mx-auto">
 
                         <img src={item.image} className="w-14 h-14" alt=".." />
+                      
                         </div>
                       </Table.Cell>
-                      <Table.Cell className="hidden lg:flex">
+                      <Table.Cell className="hidden lg:flex lg:flex-col lg:items-start">
                         <div className="text-xs font-medium text-gray-900 dark:text-white">
                           {item.productName}
                         </div>
+                        <div>{item.type ? item.type : null}</div>
                       </Table.Cell>
                       <Table.Cell>
-                        <div className="font-medium text-xs">
+                        <div className="font-medium text-sm">
                           {Intl.NumberFormat().format(item.price)}đ
+                        </div>
+                        <div className="text-xs text-red-600">
+                          {item.discount ? `Đã giảm ${item.discount}%` : null}
                         </div>
                       </Table.Cell>
                       <Table.Cell>
-                        <div className="flex items-center content-start justify-start">
+                        <div className="flex items-center">
                           <button
-                            className="font-medium text-xl px-1"
+                            className="font-medium text-3xl"
                             onClick={() =>
                               updateItemQuantity(item.id, item.quantity! - 1)
                             }
@@ -76,10 +81,13 @@ const Index = () => {
                           </button>
                           <input
                             value={item.quantity}
-                            className="w-5 flex content-center pl-1 justify-center"
+                            onChange={(e:any) => {
+                              updateItemQuantity(item.id, (e.target.value)*1)
+                            }}
+                            className="w-7 flex text-base content-center justify-center text-center"
                           />
                           <button
-                            className="font-medium text-xl px-1"
+                            className="font-medium text-3xl"
                             onClick={() =>
                               updateItemQuantity(item.id, item.quantity! + 1)
                             }
@@ -141,9 +149,9 @@ const Index = () => {
 Index.getLayout = function getLayout(page: ReactElement) {
   return (
     <CartProvider>
-      <Layout>
+      <Layout2>
         <>{page}</>
-      </Layout>
+      </Layout2>
     </CartProvider>
   );
 };

@@ -17,10 +17,10 @@ const Index = () => {
   const [isPayyed, setIsPayyed] = useState(false);
   const [fee, setFee] = useState(14000);
   const [total, setTotal] = useState(0);
-  const router =useRouter()
+  const router = useRouter();
 
   useEffect(() => {
-    setIsPayyed(cod === true || creditCard===true);
+    setIsPayyed(cod === true || creditCard === true);
   }, [cod, creditCard]);
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const Index = () => {
       const user = stored ? JSON.parse(stored) : "";
       const id = user.id;
       const config = {
-        baseURL: "https://quocson.fatcatweb.top/",
+        baseURL: "http://localhost:3006/",
         headers: { Authorization: "Bearer " + user.tokens.accessToken },
       };
 
@@ -43,12 +43,10 @@ const Index = () => {
   }, []);
 
   const { totalItems, items, cartTotal } = useCart();
-  
+
   useEffect(() => {
-return setTotal(cartTotal + fee - 14000)
-
-  },[fee])
-
+    return setTotal(cartTotal + fee - 14000);
+  }, [fee]);
 
   const prop = {
     title: "tiki payment thanh toán đăng nhập địa chỉ giao hàng",
@@ -131,7 +129,9 @@ return setTotal(cartTotal + fee - 14000)
                   name="countries"
                   value={fee}
                   defaultChecked={true}
-                  onClick={(e: any) => {setFee(14000)}}
+                  onClick={(e: any) => {
+                    setFee(14000);
+                  }}
                 />
                 <Label
                   htmlFor="united-state"
@@ -144,8 +144,10 @@ return setTotal(cartTotal + fee - 14000)
                   </div>
                   <div className="flex gap-1 items-center mt-1">
                     <img
-                     className="h-7 w-auto"
-                    alt="freeship" src="/image/freeship.png" />
+                      className="h-7 w-auto"
+                      alt="freeship"
+                      src="/image/freeship.png"
+                    />
                   </div>
                 </Label>
               </div>
@@ -154,7 +156,9 @@ return setTotal(cartTotal + fee - 14000)
                   id="united-state"
                   name="countries"
                   value={fee}
-                  onClick={(e: any) => {setFee(30000)}}
+                  onClick={(e: any) => {
+                    setFee(30000);
+                  }}
                 />
                 <Label
                   htmlFor="united-state"
@@ -167,8 +171,10 @@ return setTotal(cartTotal + fee - 14000)
                   </div>
                   <div className="flex gap-1 items-center mt-1">
                     <img
-                    className="h-7 w-auto"
-                     alt="freeship" src="/image/express.png" />
+                      className="h-7 w-auto"
+                      alt="freeship"
+                      src="/image/express.png"
+                    />
                   </div>
                 </Label>
               </div>
@@ -186,10 +192,13 @@ return setTotal(cartTotal + fee - 14000)
                         src={item.image}
                         className="w-8 h-8"
                       />
-                      <span>
-                        <span>{item.productName} x </span>
-                        <span className="font-medium">{item.quantity}</span>
-                      </span>
+                      <div className="flex flex-col items-start">
+                        <div className="flex gap-1">
+                          <span>{item.productName} x </span>
+                          <span className="font-medium">{item.quantity}</span>
+                        </div>
+                        <p className="text-gray-500">{item.type}</p>
+                      </div>
                     </div>
                     <div className="font-medium ml-5">
                       {Intl.NumberFormat().format(item.price) + "đ"}
@@ -209,8 +218,8 @@ return setTotal(cartTotal + fee - 14000)
                   value={payment}
                   onChange={() => {
                     setCod(true);
-                    setCreditCard(false)
-                    setPayment('cod')
+                    setCreditCard(false);
+                    setPayment("cod");
                   }}
                   name="default-radio"
                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
@@ -229,8 +238,8 @@ return setTotal(cartTotal + fee - 14000)
                   value={payment}
                   onChange={() => {
                     setCod(false);
-                    setCreditCard(true)
-                    setPayment('credit card')
+                    setCreditCard(true);
+                    setPayment("credit card");
                   }}
                   name="default-radio"
                   className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
@@ -306,11 +315,12 @@ return setTotal(cartTotal + fee - 14000)
               </p>
             </div>
           </div>
-          <Button className="mb-8"
+          <Button
+            className="mb-8"
             disabled={!isPayyed}
             onClick={(e: any) => {
               axios
-                .post(`https://quocson.fatcatweb.top/cart/orderitem`, {
+                .post(`http://localhost:3006/cart/orderitem`, {
                   userId: users.id,
                   orderItems: JSON.stringify(items),
                   cartTotal: total,
@@ -318,10 +328,11 @@ return setTotal(cartTotal + fee - 14000)
                   phone: users.phone,
                   username: users.username,
                   payment: payment || false,
-                  trans: fee === 14000 ? 'fast' : 'express',
+                  fee: fee - 14000,
+                  trans: fee === 14000 ? "fast" : "express",
                 })
                 .then((res: any) => {
-                  router.push('/diachigiaohang/giaohang/thanhtoan/thanhcong')
+                  router.push("/diachigiaohang/giaohang/thanhtoan/thanhcong");
                   console.log(res.data);
                 });
             }}
@@ -331,7 +342,7 @@ return setTotal(cartTotal + fee - 14000)
         </div>
       </div>
     </div>
-  )
+  );
 };
 
 Index.getLayout = function getLayout(page: ReactElement) {

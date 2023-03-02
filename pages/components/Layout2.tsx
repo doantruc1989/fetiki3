@@ -1,8 +1,9 @@
 import React from "react";
 import Nav from "./Nav";
+import Footera from "./Footer";
 import HeadSeo from "./HeadSeo";
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
+const Layout2 = ({ children }: { children: React.ReactNode }) => {
   const prop = {
     title: "tiki trang chủ home page tìm kiếm sản phẩm sales off giá rẻ",
     keywords: "tiki trang chủ home page tìm kiếm sản phẩm sales off giá rẻ",
@@ -13,8 +14,9 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       <HeadSeo prop={prop}/>
       <Nav />
         <main className="w-full mx-auto bg-[#F5F5FA]">{children}</main>
+      <Footera />
     </React.Fragment>
   );
 };
 
-export default Layout;
+export default Layout2;
