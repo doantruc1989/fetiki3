@@ -63,7 +63,7 @@ const Index = () => {
   useEffect(() => {
     try {
       axios
-        .get(`http://localhost:3006/v2/product/comment/${productId.id}`)
+        .get(`https://quocson.fatcatweb.top/v2/product/comment/${productId.id}`)
         .then((res: any) => {
           setStars(res.data);
           setTotalRating(
@@ -76,7 +76,7 @@ const Index = () => {
           );
           setTimeout(() => {
             axios
-              .patch(`http://localhost:3006/v2/product/${productId.id}`, {
+              .patch(`https://quocson.fatcatweb.top/v2/product/${productId.id}`, {
                 stars: (
                   (res.data[1] * 5 +
                     res.data[2] * 4 +
@@ -100,7 +100,7 @@ const Index = () => {
   useEffect(() => {
     try {
       axios
-        .get(`http://localhost:3006/v2/product/${productId.id}`)
+        .get(`https://quocson.fatcatweb.top/v2/product/${productId.id}`)
         .then((res) => {
           setProductDetail(res.data);
           setInitialCartPro({
@@ -684,7 +684,7 @@ const Index = () => {
                       onClick={() => {
                         axios
                           .post(
-                            `http://localhost:3006/v2/product/guestcomment/${commentId}`,
+                            `https://quocson.fatcatweb.top/v2/product/guestcomment/${commentId}`,
                             {
                               comment: comment,
                               review: commentId,
@@ -719,7 +719,7 @@ const Index = () => {
 //   // const { id } = router.query;
 //   const productId = params.id;
 //   const res = await axios.get(
-//     `http://localhost:3006/product/${productId}`
+//     `https://quocson.fatcatweb.top/product/${productId}`
 //   );
 //   const productDetail = res.data;
 //   return {
@@ -730,7 +730,7 @@ const Index = () => {
 // }
 
 // export async function getStaticPaths() {
-//   const res = await axios.get(`http://localhost:3006/product/`);
+//   const res = await axios.get(`https://quocson.fatcatweb.top/product/`);
 //   const data = res.data;
 //   const paths = data.map((product: any) => {
 //     return {

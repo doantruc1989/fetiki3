@@ -32,8 +32,6 @@ function Index() {
   const [reviewStars, setReviewStars] = useState(5);
   const [reviewComment, setReviewComment] = useState("");
 
-  console.log(orderId);
-
   useEffect(() => {
     setValidPw(userPw === userPw2 && userPw !== "");
   }, [userPw, userPw2]);
@@ -43,7 +41,7 @@ function Index() {
     const user = stored ? JSON.parse(stored) : "";
     const id = user.id;
     const config = {
-      baseURL: "http://localhost:3006/",
+      baseURL: "https://quocson.fatcatweb.top/",
       headers: { Authorization: "Bearer " + user.tokens.accessToken },
     };
 
@@ -56,7 +54,7 @@ function Index() {
   useEffect(() => {
     try {
       axios
-        .get(`http://localhost:3006/cart/admin/order/${users.id}`)
+        .get(`https://quocson.fatcatweb.top/cart/admin/order/${users.id}`)
         .then((res: any) => {
           setOrders(res.data);
         });
@@ -68,7 +66,7 @@ function Index() {
   const handleChangeAvt = () => {
     try {
       axios
-        .patch(`http://localhost:3006/users/${users.id}`, {
+        .patch(`https://quocson.fatcatweb.top/users/${users.id}`, {
           image: avatar || users.image,
         })
         .then((res: any) => {
@@ -88,7 +86,7 @@ function Index() {
   const handleChangePw = () => {
     try {
       axios
-        .patch(`http://localhost:3006/users/profile/${users.id}`, {
+        .patch(`https://quocson.fatcatweb.top/users/profile/${users.id}`, {
           password: userPw,
         })
         .then((res: any) => {
@@ -224,7 +222,7 @@ function Index() {
                             setPaynow(false);
                             setIsPaid(false);
                             axios.patch(
-                              `http://localhost:3006/cart/admin/listorder/${order.id}`,
+                              `https://quocson.fatcatweb.top/cart/admin/listorder/${order.id}`,
                               {
                                 isPaid: true,
                               }
@@ -350,7 +348,7 @@ function Index() {
                             onClick={() => {
                               axios
                                 .post(
-                                  `http://localhost:3006/v2/product/comment/`,
+                                  `https://quocson.fatcatweb.top/v2/product/comment/`,
                                   {
                                     comment: reviewComment || "tuyệt vời",
                                     stars: reviewStars || 5,
@@ -603,7 +601,7 @@ function Index() {
                                         e.preventDefault;
                                         axios
                                           .patch(
-                                            `http://localhost:3006/cart/admin/listorder/${orderId}`,
+                                            `https://quocson.fatcatweb.top/cart/admin/listorder/${orderId}`,
                                             {
                                               status: 3,
                                             }

@@ -29,7 +29,7 @@ const Hero6 = () => {
 
   useEffect(() => {
     try {
-      axios.get(`http://localhost:3006/v2/product?page=1`).then((response) => {
+      axios.get(`https://quocson.fatcatweb.top/v2/product?page=1`).then((response) => {
         setProducts(response.data);
       });
     } catch (error) {
@@ -40,7 +40,7 @@ const Hero6 = () => {
   const loadMoredata = () => {
     try {
       axios
-        .get(`http://localhost:3006/v2/product?page=${page}`)
+        .get(`https://quocson.fatcatweb.top/v2/product?page=${page}`)
         .then((response) => {
           setProducts([...products, ...response.data]);
           // setIsFetching(false);
@@ -54,7 +54,7 @@ const Hero6 = () => {
     try {
       axios
         .get(
-          `http://localhost:3006/product/all?search=${value}&category=${category}`
+          `https://quocson.fatcatweb.top/product/all?search=${value}&category=${category}`
         )
         .then((res) => {
           setProducts(res.data);
@@ -262,7 +262,7 @@ const Hero6 = () => {
                 <img
                   onClick={() => {
                     axios
-                      .get(`http://localhost:3006/v2/product/${product?.id}`)
+                      .get(`https://quocson.fatcatweb.top/v2/product/${product?.id}`)
                       .then((response) => {
                         setProductDetail(response.data);
                         setModals(!modals);
@@ -313,13 +313,13 @@ const Hero6 = () => {
                       Trả góp
                     </p>
                     <p className="border border-blue-600 px-1 py-0.5 rounded-sm">
-                      Nhiều màu
+                      Nhiều loại
                     </p>
                   </div>
                 ) : (
                   <div className="flex border-b border-gray-200 pb-2 gap-2 text-[9px] lg:text-xs lg:font-normal font-medium text-blue-500 justify-center">
                     <p className="border border-blue-600 px-1 py-0.5 rounded-sm">
-                      Nhiều màu
+                      Nhiều loại
                     </p>
                   </div>
                 )}

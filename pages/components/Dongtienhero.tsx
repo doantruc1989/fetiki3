@@ -31,7 +31,7 @@ function Dongtienhero() {
   useEffect(() => {
     try {
       axios
-        .get(`http://localhost:3006/product/all?search=random`)
+        .get(`https://quocson.fatcatweb.top/product/all?search=random`)
         .then((res) => {
           setProducts(res.data);
         });
@@ -115,7 +115,7 @@ function Dongtienhero() {
                     onClick={() => {
                       axios
                         .get(
-                          `http://localhost:3006/v2/product/${product?.id}`
+                          `https://quocson.fatcatweb.top/v2/product/${product?.id}`
                         )
                         .then((response) => {
                           setProductDetail(response.data);
