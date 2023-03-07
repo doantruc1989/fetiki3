@@ -74,23 +74,23 @@ const Index = () => {
               res.data[5]) /
               res.data[0] || 5
           );
-          setTimeout(() => {
-            axios
-              .patch(`https://quocson.fatcatweb.top/v2/product/${productId.id}`, {
-                stars: (
-                  (res.data[1] * 5 +
-                    res.data[2] * 4 +
-                    res.data[3] * 3 +
-                    res.data[4] * 2 +
-                    res.data[5]) /
-                    res.data[0] || 5
-                ).toFixed(2),
-                sold: res.data[0],
-              })
-              .then((res: any) => {
-                console.log(res.data);
-              });
-          }, 1000);
+          // setTimeout(() => {
+          //   axios
+          //     .patch(`https://quocson.fatcatweb.top/v2/product/${productId.id}`, {
+          //       stars: (
+          //         (res.data[1] * 5 +
+          //           res.data[2] * 4 +
+          //           res.data[3] * 3 +
+          //           res.data[4] * 2 +
+          //           res.data[5]) /
+          //           res.data[0] || 5
+          //       ).toFixed(2),
+          //       sold: res.data[0],
+          //     })
+          //     .then((res: any) => {
+          //       console.log(res.data);
+          //     });
+          // }, 5000);
         });
     } catch (error) {
       console.log(error);
@@ -159,7 +159,7 @@ const Index = () => {
             <h1 className="text-lg md:text-2xl font-medium mb-3">
               {productDetail[0]?.productName}
             </h1>
-            <div className="flex flex-col items-start gap-2 md:flex-row md:items-center md:justify-between">
+            <div className="flex md:flex-col gap-2 items-center justify-between">
               <div>
                 <Rating>
                   <Rating.Star />
@@ -195,7 +195,7 @@ const Index = () => {
 
             <div className="my-5">
               <p className="mb-3 font-medium">Loại:</p>
-              <div className="grid grid-cols-3 lg:grid-cols-4 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {productDetail[0]?.productvariant[0]?.id == undefined ? (
                   <div className="flex items-center justify-start gap-2 border border-gray-200 p-2 px-2 rounded-lg hover:bg-gray-200 cursor-pointer shadow-md">
                     <Radio
@@ -254,11 +254,11 @@ const Index = () => {
               <p className="text-blue-500">{productDetail[0]?.quantity}</p>
             </div>
 
-            <div className="flex gap-3 justify-between my-5">
+            <div className="flex flex-col md:flex-row gap-3 justify-between my-5">
               <div className="border border-gray-200 rounded-lg w-full shadow-md p-3">
                 <div className="flex gap-2 items-center mb-2">
                   <img
-                    className="h-6 w-auto"
+                    className="h-5 md:h-6 w-auto"
                     src="/image/tikinow.png"
                     alt="now"
                   />
@@ -274,7 +274,7 @@ const Index = () => {
               <div className="border border-gray-200 rounded-lg w-full shadow-md p-3">
                 <div className="flex gap-2 items-center mb-2">
                   <img
-                    className="h-6 w-auto"
+                    className="h-5 md:h-6 w-auto"
                     src="/image/tikifast.png"
                     alt="now"
                   />

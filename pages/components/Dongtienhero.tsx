@@ -127,8 +127,8 @@ function Dongtienhero() {
                     alt="..."
                   />
                   <Link href={"/products/" + product?.id}>
-                  <div className="cursor-pointer text-center text-xs h-14">
-                    <p className="font-medium text-gray-900 dark:text-white mx-1 mt-2 text-ellipsis">
+                  <div className="cursor-pointer text-center text-xs">
+                    <p className="font-medium text-gray-900 dark:text-white mx-1 mt-2 text-ellipsis h-8">
                       {product?.productName.substring(0, 40) + "..."}
                     </p>
                     <div className="flex gap-3 items-center justify-center mt-1">

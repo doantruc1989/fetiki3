@@ -69,7 +69,7 @@ function Cothebancungquantam({ prop }: any) {
       </div>
 
       <Carousel
-        swipeable={false}
+        swipeable={true}
         draggable={true}
         showDots={false}
         responsive={responsive}
@@ -117,8 +117,8 @@ function Cothebancungquantam({ prop }: any) {
                 alt="..."
               />
               <Link href={"/products/" + product?.id}>
-                <div className="cursor-pointer text-center text-xs h-14">
-                  <p className="font-medium text-gray-900 dark:text-white mx-1 mt-2 text-ellipsis">
+                <div className="cursor-pointer text-center text-xs">
+                  <p className="font-medium text-gray-900 dark:text-white mx-1 mt-2 text-ellipsis h-8">
                     {product?.productName.substring(0, 40) + "..."}
                   </p>
                   <div className="flex gap-3 items-center justify-center mt-1">
@@ -137,7 +137,7 @@ function Cothebancungquantam({ prop }: any) {
               </Link>
               {product?.discount?.disPercent ? (
                 <div className="flex gap-2 px-2 items-center justify-center">
-                  <p className="text-xl md:text-base font-medium text-red-600 dark:text-white my-1">
+                  <p className="text-lg md:text-base font-medium text-red-600 dark:text-white my-1">
                     {Intl.NumberFormat().format(product?.price)} đ
                   </p>
                   <p className="text-red-500 font-bold text-xs">

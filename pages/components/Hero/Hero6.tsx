@@ -84,12 +84,12 @@ const Hero6 = () => {
 
   return (
     <>
-      <Card className="bg-white mt-6">
-        <h5 className="text-base md:text-xl font-bold text-gray-900 dark:text-white">
+      <div className="bg-[#F5F5FA] mt-6 rounded-tl-md rounded-tr-md">
+        <h5 className="text-base md:text-xl font-bold bg-white text-gray-900 dark:text-white py-6 pl-7 rounded-tl-md rounded-tr-md">
           Gợi ý hôm nay
         </h5>
 
-        <div className="flex flex-wrap content-around justify-between sticky top-[62px] md:top-20 lg:top-[86px] xl:top-[86px] z-40">
+        <div className="flex border-b border-gray-200 flex-wrap content-around justify-between sticky top-[62px] md:top-20 lg:top-[85px] xl:top-[85px] z-40">
           <Carousel
             swipeable={true}
             draggable={true}
@@ -104,27 +104,27 @@ const Hero6 = () => {
             removeArrowOnDeviceType={["tablet", "mobile", "desktop"]}
             deviceType={"desktop"}
           >
-            <Card
+            <div
+            aria-checked={true}
               onClick={() => {
                 setPage(1);
                 setCategory("dochoi");
                 setValue("danhchoban");
                 danhchoban();
               }}
-              className={"cursor-pointer h-16 lg:h-20 hover:bg-gray-100"}
+              className= {`cursor-pointer bg-white flex flex-col items-center justify-center h-16 lg:h-20 hover:bg-blue-100 ${value === "danhchoban" ? "bg-blue-200" : ""}`}
             >
-              <button className="flex flex-col items-center">
-                <img
-                  className="h-11 w-11 md:w-8 md:h-8 lg:w-10 lg:h-10 rounded-full shadow-lg"
-                  src="/image/danhchoban.png"
-                  alt="Bonnie image"
-                />
-                <p className="text-xs h-4 lg:mt-1 text-gray-500 dark:text-gray-400 hidden lg:block">
-                  Dành cho bạn
-                </p>
-              </button>
-            </Card>
-            <Card
+              
+              <img
+                className="h-11 w-11 md:w-8 md:h-8 lg:w-10 lg:h-10 rounded-full"
+                src="/image/danhchoban.png"
+                alt="Bonnie image"
+              />
+              <p className="text-xs h-4 lg:mt-1 text-gray-500 dark:text-gray-400 hidden lg:block">
+                Dành cho bạn
+              </p>
+            </div>
+            <div
               onClick={() => {
                 setPage(1);
 
@@ -132,105 +132,95 @@ const Hero6 = () => {
                 setValue("dichvuso");
                 danhchoban();
               }}
-              className={"cursor-pointe h-16 lg:h-20 hover hover:bg-gray-100"}
+              className={`cursor-pointer bg-white flex flex-col items-center justify-center h-16 lg:h-20 hover:bg-blue-100 ${value === "dichvuso" ? "bg-blue-200" : ""}`}
             >
-              <button className="flex flex-col items-center">
-                <img
-                  className="h-11 w-11 md:w-8 md:h-8 lg:w-10 lg:h-10 rounded-full shadow-lg"
-                  src="/image/dichvuso.png"
-                  alt="Bonnie image"
-                />
-                <p className="text-xs h-4 lg:mt-1 text-gray-500 dark:text-gray-400 hidden lg:block">
-                  Dịch vụ số
-                </p>
-              </button>
-            </Card>
-            <Card
+              <img
+                className="h-11 w-11 md:w-8 md:h-8 lg:w-10 lg:h-10 rounded-full"
+                src="/image/dichvuso.png"
+                alt="Bonnie image"
+              />
+              <p className="text-xs h-4 lg:mt-1 text-gray-500 dark:text-gray-400 hidden lg:block">
+                Dịch vụ số
+              </p>
+            </div>
+            <div
               onClick={() => {
                 setPage(1);
                 setCategory("donu");
                 setValue("dealsieuhot");
                 danhchoban();
               }}
-              className="cursor-pointer h-16 lg:h-20 hover:bg-gray-100"
+              className={`cursor-pointer bg-white flex flex-col items-center justify-center h-16 lg:h-20 hover:bg-blue-100 ${value === "dealsieuhot" ? "bg-blue-200" : ""}`}
             >
-              <button className="flex flex-col items-center">
-                <img
-                  className="h-11 w-11 md:w-8 md:h-8 lg:w-10 lg:h-10 rounded-full shadow-lg"
-                  src="/image/dealsieuhot.png"
-                  alt="Bonnie image"
-                />
-                <p className="text-xs h-4 lg:mt-1 text-gray-500 dark:text-gray-400 hidden lg:block">
-                  Deal siêu hot
-                </p>
-              </button>
-            </Card>
-            <Card
+              <img
+                className="h-11 w-11 md:w-8 md:h-8 lg:w-10 lg:h-10 rounded-full"
+                src="/image/dealsieuhot.png"
+                alt="Bonnie image"
+              />
+              <p className="text-xs h-4 lg:mt-1 text-gray-500 dark:text-gray-400 hidden lg:block">
+                Deal siêu hot
+              </p>
+            </div>
+            <div
               onClick={() => {
                 setPage(1);
                 setCategory("giaynu");
                 setValue("revodoi");
                 danhchoban();
               }}
-              className="cursor-pointer h-16 lg:h-20 hover:bg-gray-100"
+              className={`cursor-pointer bg-white flex flex-col items-center justify-center h-16 lg:h-20 hover:bg-blue-100 ${value === "revodoi" ? "bg-blue-200" : ""}`}
             >
-              <button className="flex flex-col items-center">
-                <img
-                  className="h-11 w-11 md:w-8 md:h-8 lg:w-10 lg:h-10 rounded-full shadow-lg"
-                  src="/image/revodoi.png"
-                  alt="Bonnie image"
-                />
-                <p className="text-xs h-4 lg:mt-1 text-gray-500 dark:text-gray-400 hidden lg:block">
-                  Rẻ vô đối
-                </p>
-              </button>
-            </Card>
-            <Card
+              <img
+                className="h-11 w-11 md:w-8 md:h-8 lg:w-10 lg:h-10 rounded-full"
+                src="/image/revodoi.png"
+                alt="Bonnie image"
+              />
+              <p className="text-xs h-4 lg:mt-1 text-gray-500 dark:text-gray-400 hidden lg:block">
+                Rẻ vô đối
+              </p>
+            </div>
+            <div
               onClick={() => {
                 setPage(1);
                 setCategory("donam");
                 setValue("thoitrang");
                 danhchoban();
               }}
-              className="cursor-pointer h-16 lg:h-20 hover:bg-gray-100"
+              className={`cursor-pointer bg-white flex flex-col items-center justify-center h-16 lg:h-20 hover:bg-blue-100 ${value === "thoitrang" ? "bg-blue-200" : ""}`}
             >
-              <button className="flex flex-col items-center">
-                <img
-                  className="h-11 w-11 md:w-8 md:h-8 lg:w-10 lg:h-10 rounded-full shadow-lg"
-                  src="/image/thoitrang.png"
-                  alt="Bonnie image"
-                />
-                <p className="text-xs h-4 lg:mt-1 text-gray-500 dark:text-gray-400 hidden lg:block">
-                  Thời trang
-                </p>
-              </button>
-            </Card>
-            <Card
+              <img
+                className="h-11 w-11 md:w-8 md:h-8 lg:w-10 lg:h-10 rounded-full"
+                src="/image/thoitrang.png"
+                alt="Bonnie image"
+              />
+              <p className="text-xs h-4 lg:mt-1 text-gray-500 dark:text-gray-400 hidden lg:block">
+                Thời trang
+              </p>
+            </div>
+            <div
               onClick={() => {
                 setPage(1);
                 setCategory("diengiadung");
                 setValue("trending");
                 danhchoban();
               }}
-              className="cursor-pointer h-16 lg:h-20 hover:bg-gray-100"
+              className={`cursor-pointer bg-white flex flex-col items-center justify-center h-16 lg:h-20 hover:bg-blue-100 ${value === "trending" ? "bg-blue-200" : ""}`}
             >
-              <button className="flex flex-col items-center">
-                <img
-                  className="h-11 w-11 md:w-8 md:h-8 lg:w-10 lg:h-10 rounded-full shadow-lg"
-                  src="/image/trending.png"
-                  alt="Bonnie image"
-                />
-                <p className="text-xs h-4 lg:mt-1 text-gray-500 dark:text-gray-400 hidden lg:block">
-                  Trending
-                </p>
-              </button>
-            </Card>
+              <img
+                className="h-11 w-11 md:w-8 md:h-8 lg:w-10 lg:h-10 rounded-full"
+                src="/image/trending.png"
+                alt="Bonnie image"
+              />
+              <p className="text-xs h-4 lg:mt-1 text-gray-500 dark:text-gray-400 hidden lg:block">
+                Trending
+              </p>
+            </div>
           </Carousel>
         </div>
+              
 
-        {/* <div className=" flex flex-wrap content-around justify-between"> */}
         <div
-          className="grid lg:grid-cols-6 gap-1 grid-cols-2 md:grid-cols-4"
+          className="grid lg:grid-cols-6 gap-2 grid-cols-2 md:grid-cols-4 mt-3"
           id="list"
         >
           <div className="col-start-1 col-end-3 w-full h-fit">
@@ -245,7 +235,7 @@ const Hero6 = () => {
           {products.map((product: any) => {
             return (
               <div
-                className="relative rounded-md border border-gray-200 shadow-sm hover:shadow-xl bg-white mb-1"
+                className="relative rounded-md border border-gray-200 shadow-sm hover:shadow-xl bg-white"
                 key={product?.id}
               >
                 {product?.brand === "official" ? (
@@ -273,8 +263,8 @@ const Hero6 = () => {
                   alt="..."
                 />
                 <Link href={"/products/" + product?.id}>
-                  <div className="cursor-pointer text-center text-xs h-14">
-                    <p className="font-medium text-gray-900 dark:text-white mx-1 mt-2 text-ellipsis">
+                  <div className="cursor-pointer text-center text-xs">
+                    <p className="font-medium text-gray-900 dark:text-white mx-1 mt-2 text-ellipsis h-8">
                       {product?.productName.substring(0, 40) + "..."}
                     </p>
                     <div className="flex gap-3 items-center justify-center mt-1">
@@ -469,7 +459,8 @@ const Hero6 = () => {
             </Modal.Body>
           </Modal>
         </div>
-      </Card>
+      </div>
+
       <div className="flex justify-center my-8">
         <button
           className="w-fit border-2 bg-white border-blue-500 rounded-md py-2 px-16 hover:bg-blue-100 text-blue-700"
